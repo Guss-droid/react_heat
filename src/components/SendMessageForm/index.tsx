@@ -7,7 +7,7 @@ import styles from './styles.module.scss'
 export function SendMessage() {
 
   const [message, setMessage] = useState('')
-  const { user, signOut } = useContext(AuthContext)
+  const { user, signOut, goToPerfil } = useContext(AuthContext)
 
   async function handleSendMessage(e: FormEvent) {
     e.preventDefault();
@@ -27,7 +27,7 @@ export function SendMessage() {
         <VscSignOut size="32" />
       </button>
 
-      <header className={styles.userInfo}>
+      <header onClick={goToPerfil} className={styles.userInfo}>
         <div className={styles.userImage}>
           <img src={user?.avatar_url} alt={user?.name} />
         </div>

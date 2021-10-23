@@ -14,7 +14,7 @@
 .buttonSignOut{
   background: transparent;
   border: 0;
-  color: #C4C4CC;
+  color: #FFF;
 
   position: absolute;
   left: 24px;
@@ -31,6 +31,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 
   .userImage{
     padding: 3px;
@@ -41,12 +42,15 @@
     );
     border-radius: 50%;
     line-height: 0;
+    cursor: pointer;
+
 
       img{
         width: 94px;
         height: 94px;
         border-radius: 50%;
         border: 6px solid #121214;
+        cursor: pointer;
       }
   }
 
@@ -54,6 +58,8 @@
     font-size: 24px;
     line-height: 30px;
     margin-top: 16px;
+    cursor: pointer;
+
   }
 
   .userGithub{
@@ -61,6 +67,7 @@
     align-items: center;
     margin-top: 8px;
     color: #C4C4CC;
+    cursor: pointer;
 
     svg{
       margin-right: 8px;

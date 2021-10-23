@@ -11,7 +11,10 @@ type User = {
 type AuthContextData = {
   user: User | null;
   signInUrl: string;
-  signOut: () => void
+  signOut: () => void;
+  goToPerfil: () => void;
+  backToHome: () => void;
+  renderPerfil: boolean
 }
 
 type AuthProvider = {
@@ -32,6 +35,7 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider(props: AuthProvider) {
   const [user, setUser] = useState<User | null>(null)
+  const [renderPerfil, setRenderPerfil] = useState(false)
 
   const signInUrl = `https://github.com/login/oauth/authorize?scope=user&client_id=2ed8ac14d0a398504d46`
 
@@ -46,15 +50,25 @@ export function AuthProvider(props: AuthProvider) {
     setUser(user)
   }
 
-  function signOut(){
+  function signOut() {
     setUser(null)
     localStorage.removeItem('token')
+  }
+
+  function goToPerfil() {
+    setRenderPerfil(true)
+    localStorage.setItem('RenderPerfil', JSON.stringify(!renderPerfil))
+  }
+
+  function backToHome() {
+    setRenderPerfil(false)
+    localStorage.setItem('RenderPerfil', JSON.stringify(!renderPerfil))
   }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
 
-    if(token) {
+    if (token) {
       api.defaults.headers.common.authorization = `Bearer ${token}`
 
       api.get<User>('/profile').then(res => {
@@ -79,7 +93,14 @@ export function AuthProvider(props: AuthProvider) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ signInUrl, user, signOut }}>
+    <AuthContext.Provider value={{
+      signInUrl,
+      user,
+      signOut,
+      renderPerfil,
+      goToPerfil,
+      backToHome
+    }}>
       {props.children}
     </AuthContext.Provider>
   )

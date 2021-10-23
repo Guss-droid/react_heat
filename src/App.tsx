@@ -1,18 +1,27 @@
 import { useContext } from 'react'
-import styles from './App.module.scss'
+
 import { LoginBox } from './components/LoginBox'
 import { MessageList } from './components/MessageList'
 import { SendMessage } from './components/SendMessageForm'
 import { AuthContext } from './context/auth'
 
+import styles from './App.module.scss'
+import { Perfil } from './components/Perfil'
+
 export function App() {
 
-  const {user} = useContext(AuthContext)
+  const { user, renderPerfil } = useContext(AuthContext)
 
   return (
     <main className={`${styles.contentWrapper} ${!!user ? styles.contentSigned : ''}`}>
-      <MessageList />
-      {!!user ? <SendMessage/> : <LoginBox />}
+      {renderPerfil ?
+        <Perfil />
+        :
+        <>
+          <MessageList />
+          {!!user ? <SendMessage /> : <LoginBox />}
+        </>
+      }
     </main>
   )
 }
